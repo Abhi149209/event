@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "962783438468",
+    "firebase_url": "https://myevent-glbajaj-default-rtdb.firebaseio.com",
     "project_id": "myevent-glbajaj",
     "storage_bucket": "myevent-glbajaj.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "962783438468-e906210dr7tv3o22r728patggk9quqmt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.om.glbapp",
+            "certificate_hash": "74431e7490dc4d59f676760337306a72ed702500"
+          }
+        },
         {
           "client_id": "962783438468-6t48di82hihfjk109lq7h9i77m4c92s6.apps.googleusercontent.com",
           "client_type": 3

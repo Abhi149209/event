@@ -7,6 +7,7 @@ class RoundedTextField extends StatelessWidget {
   final bool privacy;
   final TextInputType keyType;
 
+
   const RoundedTextField(
       {Key? key,
       required this.text,

@@ -1,26 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:glbapp/constrants.dart';
+ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-
-class NotificationScreen extends StatefulWidget {
+class Notification_event extends StatefulWidget {
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  _Notification_eventState createState() => _Notification_eventState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _Notification_eventState extends State<Notification_event> {
   final _database=FirebaseDatabase.instance.reference();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar:
-        AppBar(
-          backgroundColor: primaryBrown,
-          elevation: 4.0,
-          toolbarHeight: 70,
-          title: Text("Notifications"),
-          centerTitle: true,
-        ),
+    return  Scaffold(
         body: Container(
           child: Padding(
             padding: EdgeInsets.all(8.0),

@@ -17,6 +17,9 @@ import 'package:glbapp/pages/authentication/signup/signup.dart';
 import 'package:glbapp/pages/authentication/welcomePage/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'package:glbapp/Notifiaction_event/organise.dart';
+import 'package:glbapp/Notifiaction_event/notification.dart';
+import 'package:glbapp/pages/HomeScreen/notifications/eventform.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => WelcomePage(),
-        "/login": (context) => LoginPage(),
+       //"/login": (context) => LoginPage(),
         "/adminlogin": (context) => AdminLogin(),
         "/adminsignup": (context) => AdminSignup(),
         "/signup": (context) => SignupPage(),
@@ -46,10 +49,17 @@ class MyApp extends StatelessWidget {
         "/appcontactus": (context) => ContactUs(),
         "/collgeclubs": (context) => CollegeClubs(),
         "/contacts": (context) => Contacts(),
-        "/feedback": (context) => FeedbackPage(),
+        "/feedback": (context) => Check(),
         "/notes": (context) => Notes(),
         "/timetable": (context) => TimeTable(),
         "/photogallery": (context) => PhotoGallery(),
+
+        "/organise":(context)=>Organise_Event_form(),
+        "/notification":(context)=>Notification_event(),
+        "/eventform": (context) => EventForm(),
+
+
+
       },
     );
   }

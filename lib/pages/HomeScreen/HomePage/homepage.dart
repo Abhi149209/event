@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:glbapp/pages/HomeScreen/HomePage/floatingNotice.dart';
 import 'package:glbapp/pages/HomeScreen/HomePage/items.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../constrants.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:glbapp/Notifiaction_event/notification.dart';
+import 'package:glbapp/Notifiaction_event/verify_event.dart';
+import 'package:glbapp/pages/HomeScreen/notifications/notificationScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,13 +17,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final database=FirebaseDatabase.instance.reference();
+  //User? user = FirebaseAuth.instance.currentUser;
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
   bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
+    final dailySpecialRef=database.child('/notification');
     Size size = MediaQuery.of(context).size;
+   // print(user!.email);
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
         ..scale(scaleFactor),
@@ -50,31 +59,31 @@ class _HomePageState extends State<HomePage> {
               children: [
                 isDrawerOpen
                     ? IconButton(
-                        tooltip: 'Close',
-                        onPressed: () {
-                          setState(() {
-                            xOffset = 0;
-                            yOffset = 0;
-                            scaleFactor = 1;
-                            isDrawerOpen = false;
-                          });
-                        },
-                        icon: Icon(Icons.close),
-                      )
+                  tooltip: 'Close',
+                  onPressed: () {
+                    setState(() {
+                      xOffset = 0;
+                      yOffset = 0;
+                      scaleFactor = 1;
+                      isDrawerOpen = false;
+                    });
+                  },
+                  icon: Icon(Icons.close),
+                )
                     : IconButton(
-                        tooltip: 'Menu',
-                        onPressed: () {
-                          setState(() {
-                            xOffset = 230;
-                            yOffset = 90;
-                            scaleFactor = 0.8;
-                            isDrawerOpen = true;
-                          });
-                        },
-                        icon: Icon(Icons.menu),
-                        color: Colors.white,
-                        iconSize: 30,
-                      ),
+                  tooltip: 'Menu',
+                  onPressed: () {
+                    setState(() {
+                      xOffset = 230;
+                      yOffset = 90;
+                      scaleFactor = 0.8;
+                      isDrawerOpen = true;
+                    });
+                  },
+                  icon: Icon(Icons.menu),
+                  color: Colors.white,
+                  iconSize: 30,
+                ),
                 Text(
                   "GLBITM APP",
                   style: TextStyle(
@@ -84,7 +93,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/notificationScreen");
+
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) =>NotificationScreen(),
+                        ));
                   },
                   icon: Icon(
                     Icons.notifications,
@@ -117,6 +131,19 @@ class _HomePageState extends State<HomePage> {
                         child: FloatingNotice(),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: size.height * .025,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: FloatingActionButton.extended(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, "/eventform"),
+                      label: Text("Organise"),
+                      backgroundColor: primaryBrown,
+                      icon: Icon(Icons.add),
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .025,
@@ -162,6 +189,38 @@ class _HomePageState extends State<HomePage> {
                       Navigator.pushNamed(context, "/notes");
                     },
                     text: "Notes",
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final nextorder=<String,dynamic>{
+                        'description':'kya karrhe ho bsdk',
+                        'price':9869,
+                      };
+                      database.child('orders').push().set(nextorder)
+                      .then((value) => print('hogya '))
+                      .catchError((onError)=> print('nai hua '));
+                    }, child: Text('kjv'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/organise");
+
+
+                    }, child: Text('kjv'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Notification_event()));
+
+                     }                ,
+                    child: Text('kjv'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Verify()));
+
+                    }                ,
+                    child: Text('kjv'),
                   ),
 
                   // Padding(
