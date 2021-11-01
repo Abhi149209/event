@@ -10,8 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:glbapp/pages/authentication/Auth/firebase.dart';
 import 'package:glbapp/pages/HomeScreen/homeScreen.dart';
 
-
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -20,7 +18,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late User user;
 
-
   @override
   void initState() {
     super.initState();
@@ -28,29 +25,29 @@ class _BodyState extends State<Body> {
   }
 
   void click() {
-    signInWithUser().then((user)  {
-
-      this.user = user!;
+    print("Clicked 1");
+    signInWithGoogle().then((user) {
+      // this.user = user!;
       print(user);
+      print("success--------------->");
 
+      // yaha pe navigate karo homepage ko sahi tareeke se neeche wala code glt hai
 
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) => HomeScreen(),
-      ),
-    );
-  }).catchError((error) {
-    print('Registration Error: $error');
+      // Navigator.of(context).pop();
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     fullscreenDialog: true,
+      //     builder: (context) => HomeScreen(),
+      //   ),
+      // );
+      
+    }).catchError((error) {
+      print('Registration Error: $error');
     });
-
-
-
   }
+
   @override
   Widget build(BuildContext context) {
-
     return WelcomeBackground(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -58,7 +55,7 @@ class _BodyState extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height*0.05,
+                height: MediaQuery.of(context).size.height * 0.05,
               ),
               Text(
                 "WELCOME TO GLBITM",
@@ -68,7 +65,7 @@ class _BodyState extends State<Body> {
                 "FIND YOUR SPARK",
                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*0.05),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               // Image.asset(
               //   "assets/images/book.png",
               //   height: size.height * .30,
@@ -76,71 +73,72 @@ class _BodyState extends State<Body> {
               SvgPicture.asset(
                 "assets/images/books.svg",
                 //fit: BoxFit.cover,
-                height: MediaQuery.of(context).size.height*0.3,
+                height: MediaQuery.of(context).size.height * 0.3,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*0.05),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
 
-
-            OutlinedButton(
-                onPressed: this.click,
-                style: OutlinedButton.styleFrom(
-                  backgroundColor:  Color(0xff902525),
-//splashColor: Colors.grey,
-                  shadowColor: Colors.grey,
-
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-
-// BorderSide: BorderSide(color: Colors.grey),
-
-                ),
-
-
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image(image: AssetImage('assets/images/google_logo.png'), height: 35),
-                        Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text('Sign in with Google',
-                                style: TextStyle(color: Colors.white, fontSize: 25)))
-                      ],
-                    ))),
-
-
-
-            SizedBox(height: MediaQuery.of(context).size.height*0.05),
               OutlinedButton(
-                  onPressed: () {
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  },
+                  onPressed: this.click,
                   style: OutlinedButton.styleFrom(
-                    backgroundColor:  Color(0xff902525),
+                    backgroundColor: Color(0xff902525),
 //splashColor: Colors.grey,
                     shadowColor: Colors.grey,
 
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45)),
 
 // BorderSide: BorderSide(color: Colors.grey),
-
                   ),
-
-
                   child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image(image: AssetImage('assets/images/google_logo.png'), height: 35),
+                          Image(
+                              image:
+                                  AssetImage('assets/images/google_logo.png'),
+                              height: 35),
                           Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text('Sign in with Google',
-                                  style: TextStyle(color: Colors.white, fontSize: 25)))
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25)))
+                        ],
+                      ))),
+
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              OutlinedButton(
+                  onPressed: () {
+                    print("Clicked 2");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  },
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Color(0xff902525),
+//splashColor: Colors.grey,
+                    shadowColor: Colors.grey,
+
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45)),
+
+// BorderSide: BorderSide(color: Colors.grey),
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image(
+                              image:
+                                  AssetImage('assets/images/google_logo.png'),
+                              height: 35),
+                          Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text('Sign in with Google',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25)))
                         ],
                       ))),
             ],
