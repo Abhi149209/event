@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'email_generator.dart';
 class Verify extends StatefulWidget {
   @override
   _VerifyState createState() => _VerifyState();
@@ -7,6 +8,7 @@ class Verify extends StatefulWidget {
 
 class _VerifyState extends State<Verify> {
   final _database=FirebaseDatabase.instance.reference();
+  final String body='Thank you for registering your event. Director/HOD office has viewed your request and granted Permission for so. ';
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -34,6 +36,8 @@ class _VerifyState extends State<Verify> {
                             .then((value) => print('hogya '))
                             .catchError((onError)=> print('nai hua '));
                         _database.child('event_details').push().set({'date': nextOrder['date']});
+                        Send(topic:nextOrder['topic'],date:nextOrder['date'],slot:nextOrder['date'],description:nextOrder['description'],body:body,email:nextOrder['emailId'], ).send();
+
                       },
                     );
                     nextOrder['verified']==0?tilesList.add(orderTile):null;
