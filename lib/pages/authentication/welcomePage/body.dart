@@ -30,7 +30,7 @@ class _BodyState extends State<Body> {
   void click() {
     signInWithUser().then((user)  {
 
-      this.user = user!;
+      //this.user = user!;
       print(user);
 
 
