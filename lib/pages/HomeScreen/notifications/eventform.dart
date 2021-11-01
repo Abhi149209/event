@@ -143,7 +143,7 @@ class _EventFormState extends State<EventForm> {
   }
   Future<void> _inputUserEventData() async {
     final nextEvent=<String,dynamic>{
-      'description': description,'verified':0, 'name': name, 'uniqueId': uniqueId, 'date':S, 'tenure': tenure, 'topic': topic,'venue':venue,'emailId':email
+      'description': description,'verified':0,'declined':0, 'name': name, 'uniqueId': uniqueId, 'date':S, 'tenure': tenure, 'topic': topic,'venue':venue,'emailId':email
     };
     _database.child('/organisers').push().set(nextEvent)
         .then((value) => print("done"))
@@ -168,8 +168,19 @@ class _EventFormState extends State<EventForm> {
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Container(
+              //     child: Text('To organize your event enter your details here. ',
+              //         style: TextStyle(
+              //           color: Colors.black,
+              //           fontSize: 25,
+              //           fontWeight: FontWeight.normal,
+              //         )),
+              //   ),
+              // ),
               SizedBox(
-                height: 250.0,
+                height: 50.0,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -188,12 +199,14 @@ class _EventFormState extends State<EventForm> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child: Text('To organize your event enter your details here. ',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              )),
+                          child: Center(
+                            child: Text('Event Form',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                )),
+                          ),
                         ),
                       ),
 

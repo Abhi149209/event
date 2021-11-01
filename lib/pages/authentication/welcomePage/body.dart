@@ -18,7 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late User user;
+  late UserCredential user;
 
 
   @override
@@ -47,7 +47,9 @@ class _BodyState extends State<Body> {
 
 
 
+
   }
+
   @override
   Widget build(BuildContext context) {
 

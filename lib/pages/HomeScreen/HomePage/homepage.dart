@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../constrants.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:glbapp/Notifiaction_event/notification.dart';
-import 'package:glbapp/Notifiaction_event/verify_event.dart';
+import '../../../Director/verify_event.dart';
 import 'package:glbapp/pages/HomeScreen/notifications/notificationScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           fullscreenDialog: true,
-                          builder: (context) =>NotificationScreen(),
+                          builder: (context) =>Notification_event(),
                         ));
                   },
                   icon: Icon(
