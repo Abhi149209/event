@@ -18,7 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late UserCredential user;
+  late User user;
 
 
   @override
@@ -30,7 +30,7 @@ class _BodyState extends State<Body> {
   void click() {
     signInWithUser().then((user)  {
 
-      //this.user = user!;
+      this.user = user!;
       print(user);
 
 
@@ -47,9 +47,7 @@ class _BodyState extends State<Body> {
 
 
 
-
   }
-
   @override
   Widget build(BuildContext context) {
 
