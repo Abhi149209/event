@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glbapp/pages/HomeScreen/homeScreen.dart';
 import 'package:glbapp/pages/authentication/welcomePage/background.dart';
@@ -25,22 +24,13 @@ class _BodyState extends State<Body> {
   }
 
   void click() {
-    print("Clicked 1");
+    print("Signing with google clicked------>");
     signInWithGoogle().then((user) {
       // this.user = user!;
       print(user);
-      print("success--------------->");
-
-      // yaha pe navigate karo homepage ko sahi tareeke se neeche wala code glt hai
-
-      // Navigator.of(context).pop();
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     fullscreenDialog: true,
-      //     builder: (context) => HomeScreen(),
-      //   ),
-      // );
-      
+      print("Signed in succesfully---------->");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((error) {
       print('Registration Error: $error');
     });
@@ -110,9 +100,11 @@ class _BodyState extends State<Body> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               OutlinedButton(
                   onPressed: () {
-                    print("Clicked 2");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    
+                    signOutGoogle();
+                    print("Logged out");
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Color(0xff902525),
@@ -136,7 +128,7 @@ class _BodyState extends State<Body> {
                               height: 35),
                           Padding(
                               padding: EdgeInsets.only(left: 10),
-                              child: Text('Sign in with Google',
+                              child: Text('Sign out',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 25)))
                         ],

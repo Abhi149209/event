@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 // final FirebaseAuth _auth=FirebaseAuth.instance;
-// final GoogleSignIn googleSignIn=GoogleSignIn();
+final GoogleSignIn googleSignIn=GoogleSignIn();
 
 String email="";
 
 Future<UserCredential> signInWithGoogle() async {
-  final GoogleSignInAccount googleuser = await GoogleSignIn().signIn();
+  final GoogleSignInAccount googleuser = await googleSignIn.signIn();
 
   final GoogleSignInAuthentication googleAuth = await googleuser.authentication;
 
@@ -25,6 +25,6 @@ Future<UserCredential> signInWithGoogle() async {
 
 }
 
-// void signOutGoogle() async {
-//   await googleSignIn.signOut();
-// }
+void signOutGoogle() async {
+  await googleSignIn.signOut();
+}
