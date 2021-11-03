@@ -27,26 +27,18 @@ class _BodyState extends State<Body> {
     //signOutGoogle();
   }
 
+
   void click() {
-    signInWithUser().then((user)  {
-
-      this.user = user!;
+    print("Signing with google clicked------>");
+    signInWithGoogle().then((user) {
+      // this.user = user!;
       print(user);
-
-
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) => HomeScreen(),
-      ),
-    );
-  }).catchError((error) {
-    print('Registration Error: $error');
+      print("Signed in succesfully---------->");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }).catchError((error) {
+      print('Registration Error: $error');
     });
-
-
-
   }
   @override
   Widget build(BuildContext context) {
