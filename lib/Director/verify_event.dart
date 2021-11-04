@@ -1,99 +1,133 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import '../Notifiaction_event/email_generator.dart';
-import 'PermissionCard.dart';
-import 'package:glbapp/constrants.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/material.dart';
+import 'package:glbapp/Director/PermissionCard.dart';
+import 'package:glbapp/Notifiaction_event/email_generator.dart';
+
 class Verify extends StatefulWidget {
   @override
   _VerifyState createState() => _VerifyState();
 }
 
 class _VerifyState extends State<Verify> {
-  final _database=FirebaseDatabase.instance.reference();
+  late Query _ref;
   final String body='Thank you for registering your event. Director/HOD office has viewed your request and granted Permission for so. ';
+
+  DatabaseReference _database =
+  FirebaseDatabase.instance.reference();
+  DatabaseReference reference =
+  FirebaseDatabase.instance.reference().child('/organisers');
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-        body: Container(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: StreamBuilder(
-              stream: _database.child('/organisers').orderByKey().limitToLast(10).onValue,
-              builder: (context,snapshot) {
-                final tilesList=<PermissionCard>[];
-                if(snapshot.hasData){
-                  final myOrders=Map<String,dynamic>.from((snapshot.data! as Event).snapshot.value);
-                  myOrders.forEach((key, value) {
+  void initState() {
 
-                    final nextOrder=Map<String,dynamic>.from(value);
-                    //print(_database.child('/organise/'));
+    super.initState();
+    _ref = FirebaseDatabase.instance
+        .reference()
+        .child('/organisers')
+        .orderByChild('name');
+  }
 
-                    // final orderTile=ListTile(
-                    //
-                    //
-                    //   title: Text(nextOrder['description']),
-                    //   subtitle: Text(nextOrder['name']),
-                    //   onTap: () async {
-                    //     nextOrder['verified']=1;
-                    //     _database.child('/verified').push().set(nextOrder)
-                    //         .then((value) => print('hogya '))
-                    //         .catchError((onError)=> print('nai hua '));
-                    //     _database.child('event_details').push().set({'date': nextOrder['date']});
-                    //     Send(topic:nextOrder['topic'],date:nextOrder['date'],slot:nextOrder['date'],description:nextOrder['description'],body:body,email:nextOrder['emailId'], ).send();
-                    //
-                    //   },
-                    // );
-                    final Card=PermissionCard(
-                        AcceptPress:() async {
-                                  nextOrder['verified']=1;
+  Widget _buildContactItem({required Map nextOrder}) {
+    //Color typeColor = getTypeColor(contact['type']);
+    return PermissionCard(
 
-                                 _database.child('/verified').push().set(nextOrder)
-                                 .then((value) => print('hogya '))
-                                  .catchError((onError)=> print('nai hua '));
-                                 _database.child('event_details').push().set({'date': nextOrder['date']});
-                                  Send(topic:nextOrder['topic'],date:nextOrder['date'],slot:nextOrder['date'],description:nextOrder['description'],body:body,email:nextOrder['emailId'], ).send();
+      AcceptPress:() async {
+        nextOrder['verified']=1;
 
 
-                                  
 
-                            },
-                        DeclinePress:() {
-                          nextOrder['declined']=1;
-                          _database.child('/declined').push().set(nextOrder)
-                              .then((value) => print('hogya '))
-                              .catchError((onError)=> print('nai hua '));
-                        },
-                        Title: nextOrder['topic'].toString(),
-                        Date: nextOrder['date'].toString(),
-                        Time: nextOrder['date'].toString(),
-                      Venue: nextOrder['venue'].toString(),
-                      uniqueId: nextOrder['uniqueId'].toString(),
-                      email: nextOrder['emailId'].toString(),
-                      Description: nextOrder['description'].toString(),
-                      name: nextOrder['name'],
-
-
-                     // color: secondaryYellow,
+        Send(topic:nextOrder['topic'],date:nextOrder['date'],slot:nextOrder['date'],description:nextOrder['description'],body:body,email:nextOrder['emailId'], ).send().then((value) =>
+            reference
+                .child(nextOrder['key'])
+                .remove()
+                .whenComplete(() => Navigator.pop(context))).then((value) =>
+            _database.child('/verified').push().set(nextOrder)
+                .then((value) => print('hogya '))
+                .catchError((onError)=> print('nai hua '))
+        ).then((value) => _database.child('event_details').push().set({'date': nextOrder['date']}));
 
 
 
 
-                    );
-
-                    nextOrder['verified']==0?tilesList.add(Card):null;
-
-                  });
-                }
-                return Expanded(child: ListView(children: tilesList,),
-
-                );
 
 
-              },
 
-            ),
-          ),
-        )
+
+      },
+      DeclinePress:() {
+        nextOrder['declined']=1;
+        _database.child('/declined').push().set(nextOrder)
+            .then((value) => print('hogya '))
+            .catchError((onError)=> print('nai hua '));
+
+        reference
+            .child(nextOrder['key'])
+            .remove()
+            .whenComplete(() => Navigator.pop(context));
+      },
+      Title: nextOrder['topic'].toString(),
+      Date: nextOrder['date'].toString(),
+      Time: nextOrder['date'].toString(),
+      Venue: nextOrder['venue'].toString(),
+      uniqueId: nextOrder['uniqueId'].toString(),
+      email: nextOrder['emailId'].toString(),
+      Description: nextOrder['description'].toString(),
+      name: nextOrder['name'],
+
+
+      // color: secondaryYellow,
+
+
+
+
     );
   }
+
+  _showDeleteDialog({required Map contact}) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Delete ${contact['name']}'),
+            content: Text('Are you sure you want to delete?'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    reference
+                        .child(contact['key'])
+                        .remove()
+                        .whenComplete(() => Navigator.pop(context));
+                  },
+                  child: Text('Delete'))
+            ],
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: Container(
+        height: double.infinity,
+        child: FirebaseAnimatedList(
+          query: _ref,
+          itemBuilder: (BuildContext context, DataSnapshot snapshot,
+              Animation<double> animation, int index) {
+            //final nextOrder=Map<String,dynamic>.from(value);
+            Map contact = snapshot.value;
+            contact['key'] = snapshot.key;
+            return _buildContactItem(nextOrder: contact);
+          },
+        ),
+      ),
+
+    );
+  }
+
 }

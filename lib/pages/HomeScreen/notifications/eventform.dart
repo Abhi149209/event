@@ -92,6 +92,7 @@ class _EventFormState extends State<EventForm> {
 
   Future<void> check(String time)async {
     ok=true;
+    inte=1;
 
     await _database.child('event_details').once().then((DataSnapshot snapshot){
       print("aya2");
@@ -109,7 +110,7 @@ class _EventFormState extends State<EventForm> {
         });
     });
 
-      inte=1;
+
 
 
 
@@ -448,6 +449,7 @@ class _EventFormState extends State<EventForm> {
                         }
                         if(inte==1 && ok) {
                           await _inputUserEventData();
+                          print("pata nai");
 
                           final snackBar = SnackBar(
                             content: const Text('Slot is Booked , Verification Pending!'),

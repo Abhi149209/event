@@ -35,7 +35,21 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(description!),
+      body: Container(
+        child: Column(
+          children: [
+            Text(description!),
+          ElevatedButton(
+            onPressed: (){
+
+            },
+            child: Text("Register"),
+
+           )
+
+          ],
+        ),
+      ),
     );
   }
 }
