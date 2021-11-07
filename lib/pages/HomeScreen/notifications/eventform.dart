@@ -144,7 +144,7 @@ class _EventFormState extends State<EventForm> {
   }
   Future<void> _inputUserEventData() async {
     final nextEvent=<String,dynamic>{
-      'description': description,'verified':0,'declined':0, 'name': name, 'uniqueId': uniqueId, 'date':S, 'tenure': tenure, 'topic': topic,'venue':venue,'emailId':email
+      'description': description,'verified':0,'declined':0, 'name': name, 'uniqueId': uniqueId, 'date':S, 'tenure': tenure, 'topic': topic,'venue':venue,'emailId':email,'registrations':0
     };
     _database.child('/organisers').push().set(nextEvent)
         .then((value) => print("done"))

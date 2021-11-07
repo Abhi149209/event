@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 
 import 'dart:async';
+import 'package:mailer/mailer.dart';
 
 
 
@@ -40,6 +41,30 @@ class Send {
       body: body + " " + "description : " + "   " + description+ " "+ "timing :" + date + "    " + " slot :"+ " "+ ((slot[slot.length-1]=='A')?"09:00 AM - 02:00 PM":"03:00 PM - 07:00 PM") + "   " + "topic : "+ " "+ topic,
       subject: _subjectController.text + topic,
       recipients:[this.email],
+
+      attachmentPaths: attachments,
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+      print(platformResponse);
+    } catch (error) {
+      platformResponse = error.toString();
+      print(platformResponse);
+    }
+
+  }
+
+  Future<void> send_2() async {
+    final Email email = Email(
+      body: body + " " + "description : " + "   " + description+ " "+ "timing :" + date + "    " + " slot :"+ " "+ ((slot[slot.length-1]=='A')?"09:00 AM - 02:00 PM":"03:00 PM - 07:00 PM") + "   " + "topic : "+ " "+ topic,
+      subject: _subjectController.text + topic,
+      recipients:[this.email],
+
       attachmentPaths: attachments,
       isHTML: isHTML,
     );

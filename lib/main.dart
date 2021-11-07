@@ -17,6 +17,9 @@ import 'package:glbapp/pages/authentication/login/login.dart';
 import 'package:glbapp/pages/authentication/signup/signup.dart';
 import 'package:glbapp/pages/authentication/welcomePage/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:glbapp/pages/authentication/Timetable/branch.dart';
+import 'package:glbapp/pages/authentication/Timetable/timetable.dart';
+
 
 import 'package:glbapp/Notifiaction_event/organise.dart';
 import 'package:glbapp/Notifiaction_event/notification.dart';
@@ -56,8 +59,12 @@ class MyApp extends StatelessWidget {
         "/photogallery": (context) => PhotoGallery(),
 
         "/organise":(context)=>Organise_Event_form(),
-        "/notification":(context)=>Notification_event(),
+        "/notification":(context)=>Notification_Event(),
         "/eventform": (context) => EventForm(),
+        "/branch": (context) => Branch(),
+        "/timetable2": (context) => TimeTable2(),
+
+
 
 
 

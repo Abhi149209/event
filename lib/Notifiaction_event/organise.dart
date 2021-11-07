@@ -21,7 +21,7 @@ class _Organise_Event_formState extends State<Organise_Event_form> {
     final nextEvent=<String,dynamic>{
       'description': "lorem iosum",'verified':0, 'name': 'abhinav sahai ', 'uniqueId': 'me19112', 'date': 3456, 'tenure': 2, 'time': 1234, 'topic': 'kuch bhi'
     };
-    _database.child('/organisers').push().set(nextEvent)
+    _database.child('/user_details/me19113').push().set(nextEvent)
         .then((value) => print('hogya '))
         .catchError((onError)=> print('nai hua '));
 

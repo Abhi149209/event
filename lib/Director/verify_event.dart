@@ -11,6 +11,9 @@ class Verify extends StatefulWidget {
 
 class _VerifyState extends State<Verify> {
   late Query _ref;
+  late var first;
+  late var second;
+  var user="me19112";
   final String body='Thank you for registering your event. Director/HOD office has viewed your request and granted Permission for so. ';
 
   DatabaseReference _database =
@@ -29,6 +32,7 @@ class _VerifyState extends State<Verify> {
 
   Widget _buildContactItem({required Map nextOrder}) {
     //Color typeColor = getTypeColor(contact['type']);
+
     return PermissionCard(
 
       AcceptPress:() async {
@@ -45,6 +49,8 @@ class _VerifyState extends State<Verify> {
                 .then((value) => print('hogya '))
                 .catchError((onError)=> print('nai hua '))
         ).then((value) => _database.child('event_details').push().set({'date': nextOrder['date']}));
+
+
 
 
 
@@ -122,6 +128,7 @@ class _VerifyState extends State<Verify> {
             //final nextOrder=Map<String,dynamic>.from(value);
             Map contact = snapshot.value;
             contact['key'] = snapshot.key;
+
             return _buildContactItem(nextOrder: contact);
           },
         ),

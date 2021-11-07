@@ -41,6 +41,8 @@ dependencies:
   form_field_validator: ^1.1.0
   flutter_email_sender: ^5.0.2
   fluttertoast: ^8.0.8
+  mailer: ^5.0.2
+  url_launcher: ^6.0.12
 
 
 dev_dependencies:

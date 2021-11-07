@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           fullscreenDialog: true,
-                          builder: (context) =>Notification_event(),
+                          builder: (context) =>Notification_Event()
                         ));
                   },
                   icon: Icon(
@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Notification_event()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Notification_Event()));
 
                      }                ,
                     child: Text('kjv'),
