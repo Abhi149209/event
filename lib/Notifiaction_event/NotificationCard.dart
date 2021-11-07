@@ -111,7 +111,8 @@ class NotificationCard extends StatelessWidget {
                 ),
                 SizedBox(height: 5.0,),
                 Text(
-                  (date![(date?.length)!-1]=='A')?"09:00 AM- 02:00 PM":"03:00 PM - 07:00 PM",
+                 "jdhbg",
+                 // (date![(date?.length)!-1]=='A')?"09:00 AM- 02:00 PM":"03:00 PM - 07:00 PM",
                   style: TextStyle(
 
                     fontSize: 15,

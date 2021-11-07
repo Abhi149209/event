@@ -3,13 +3,14 @@ import 'package:glbapp/pages/HomeScreen/HomePage/homepage.dart';
 import 'package:glbapp/pages/HomeScreen/drawerScreen/drawerScreen.dart';
 
 class HomeScreen extends StatelessWidget {
-  //const HomeScreen({ Key? key }) : super(key: key);
+  final int role;
+  const HomeScreen({ required this.role });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [DrawerScreen(), HomePage()],
+        children: [DrawerScreen(role:  role,), HomePage(role: role,)],
       ),
     );
   }

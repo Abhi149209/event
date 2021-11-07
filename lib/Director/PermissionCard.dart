@@ -80,7 +80,8 @@ class PermissionCard extends StatelessWidget {
                 SizedBox(height: 05.0,),
                 //SizedBox(width: 10,),
                 Text(
-                  "Slot : ${(Date![(Date?.length)!-1]=='A')?"09:00 AM- 02:00 PM":"03:00 PM - 07:00 PM"}",
+                  "jdhfg",
+                 // "Slot : ${(Date![(Date?.length)!-1]=='A')?"09:00 AM- 02:00 PM":"03:00 PM - 07:00 PM"}",
                   style: TextStyle(fontSize: 15),
                 ),
                 //SizedBox(height: 20,),
