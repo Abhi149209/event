@@ -1,4 +1,7 @@
 import 'dart:ui';
+import 'package:glbapp/pages/HomeScreen/drawerScreen/about.dart';
+import 'package:glbapp/pages/HomeScreen/drawerScreen/contactUs.dart';
+import 'package:glbapp/pages/HomeScreen/drawerScreen/feedback.dart';
 import 'package:glbapp/pages/authentication/welcomePage/Controller.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +50,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 children: [
                   ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, "/appourteam");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>AboutUs()
+                          ));
                     },
                     leading: Icon(
                       Icons.group,
@@ -57,7 +64,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, "/appfeedback");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>AppFeedback()
+                          ));
                     },
                     leading: Icon(
                       Icons.feedback,
@@ -67,7 +78,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, "/appcontactus");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>Contact()
+                          ));;
                     },
                     leading: Icon(
                       Icons.phone,
