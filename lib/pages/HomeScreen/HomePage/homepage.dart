@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:glbapp/pages/HomeScreen/HomePage/floatingNotice.dart';
+import 'package:glbapp/pages/HomeScreen/HomePage/itemPages/CollegeClubs.dart';
+import 'package:glbapp/pages/HomeScreen/HomePage/itemPages/PhotoGallery.dart';
+import 'package:glbapp/pages/HomeScreen/HomePage/itemPages/TimeTable.dart';
 import 'package:glbapp/pages/HomeScreen/HomePage/items.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:glbapp/pages/HomeScreen/drawerScreen/contactUs.dart';
+import 'package:glbapp/pages/HomeScreen/drawerScreen/feedback.dart';
+import 'package:glbapp/pages/HomeScreen/notifications/eventform.dart';
 
 
 import '../../../constrants.dart';
@@ -9,6 +15,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:glbapp/Notifiaction_event/notification.dart';
 import '../../../Director/verify_event.dart';
 import 'package:glbapp/pages/HomeScreen/notifications/notificationScreen.dart';
+
+import 'itemPages/Notes.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -153,7 +161,11 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(10),
                     child: FloatingActionButton.extended(
                       onPressed: () =>
-                          Navigator.pushNamed(context, "/eventform"),
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) =>EventForm()
+                              )),
                       label: Text("Organise"),
                       backgroundColor: primaryBrown,
                       icon: Icon(Icons.add),
@@ -165,42 +177,67 @@ class _HomePageState extends State<HomePage> {
                   Items(
                     imgName: "clubs",
                     press: () {
-                      Navigator.pushNamed(context, "/collgeclubs");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>CollegeClubs()
+                          ));
                     },
                     text: "College Clubs",
                   ),
                   Items(
                     imgName: "photo",
                     press: () {
-                      Navigator.pushNamed(context, "/photogallery");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>PhotoGallery()
+                          ));
                     },
                     text: "Photo Gallery",
                   ),
                   Items(
                     imgName: "contacts",
                     press: () {
-                      Navigator.pushNamed(context, "/contacts");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>Contact()
+                          ));
                     },
                     text: "Contacts",
                   ),
                   Items(
                     imgName: "calender",
                     press: () {
-                      Navigator.pushNamed(context, "/timetable");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>TimeTable()
+                          ));;
                     },
                     text: "Time Table",
                   ),
                   Items(
                     imgName: "feedback",
                     press: () {
-                      Navigator.pushNamed(context, "/feedback");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>AppFeedback()
+                          ));
                     },
                     text: "Feedback",
                   ),
                   Items(
                     imgName: "notes",
                     press: () {
-                      Navigator.pushNamed(context, "/notes");
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) =>Notes()
+                          ));
+
                     },
                     text: "Notes",
                   ),

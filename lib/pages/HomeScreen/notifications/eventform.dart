@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:glbapp/constrants.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:glbapp/pages/HomeScreen/homeScreen.dart';
 import 'package:glbapp/pages/authentication/widget/button.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -446,7 +447,8 @@ class _EventFormState extends State<EventForm> {
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                Navigator.pop(context);
+                                //Navigator.pop(context);
+
                               } else if (!ok) {
                                 final snackBar = SnackBar(
                                   content: const Text(
