@@ -7,7 +7,6 @@ import 'package:glbapp/pages/authentication/widget/button.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-
 class EventForm extends StatefulWidget {
   const EventForm({Key? key}) : super(key: key);
 
@@ -23,54 +22,45 @@ class _EventFormState extends State<EventForm> {
   final RegExp emailRegex = new RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
-
-  final _database=FirebaseDatabase.instance.reference();
-   String description="";
-   String name="";
-   String uniqueId="";
-   String topic="";
-   String S="";
-   String time="";
-   String tenure="";
-   String venue="";
-   String email="";
+  final _database = FirebaseDatabase.instance.reference();
+  String description = "";
+  String name = "";
+  String uniqueId = "";
+  String topic = "";
+  String S = "";
+  String time = "";
+  String tenure = "";
+  String venue = "";
+  String email = "";
   DateTime currentDate = DateTime.now();
+  bool val = true;
   final List<Map<String, dynamic>> _time = [
     {
       'value': 'A',
       'label': '09:00 AM - 02:00 PM',
-
     },
     {
       'value': 'B',
       'label': '03:00 PM - 07:00 PM',
-
-
     },
     {
       'value': 'C',
-      'label':'Not Selected',
+      'label': 'Not Selected',
     }
-
   ];
-
 
   final List<Map<String, dynamic>> _items = [
     {
       'value': 'SBG',
       'label': 'SBG Hall',
-
     },
     {
       'value': 'Audi 1',
       'label': 'Audi 1',
-
-
     },
     {
       'value': 'Audi 2',
       'label': 'Audi 2',
-
     },
     {
       'value': 'Audi 3',
@@ -81,53 +71,33 @@ class _EventFormState extends State<EventForm> {
       'label': 'Audi 4',
     },
     {
-      'value':'Not Selected',
-      'label' : 'Not Selected',
+      'value': 'Not Selected',
+      'label': 'Not Selected',
     }
-
   ];
   List userList = [];
-  bool ok=true;
-  int inte=0;
+  bool ok = true;
+  int inte = 0;
 
-  Future<void> check(String time)async {
-    ok=true;
-    inte=1;
+  Future<void> check(String time) async {
+    ok = true;
+    inte = 1;
 
-    await _database.child('event_details').once().then((DataSnapshot snapshot){
+    await _database.child('event_details').once().then((DataSnapshot snapshot) {
       print("aya2");
       Map<dynamic, dynamic> values = snapshot.value;
-      values.forEach((key,values) {
-        if(values["date"]==time) ok=false;
+      values.forEach((key, values) {
+        if (values["date"] == time) ok = false;
         //print(values["date"]);
-       // if(values["date"]==time) ok=false;
+        // if(values["date"]==time) ok=false;
 
         print(time);
         print(values["date"]);
         // here insert all the user into a list
         userList.add(values["dates"]);
-
-        });
+      });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
-
-
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -138,35 +108,44 @@ class _EventFormState extends State<EventForm> {
     if (pickedDate != null && pickedDate != currentDate)
       setState(() {
         currentDate = pickedDate;
-        S=currentDate.toString();
-
+        S = currentDate.toString();
       });
   }
+
   Future<void> _inputUserEventData() async {
-    final nextEvent=<String,dynamic>{
-      'description': description,'verified':0,'declined':0, 'name': name, 'uniqueId': uniqueId, 'date':S, 'tenure': tenure, 'topic': topic,'venue':venue,'emailId':email,'registrations':0
+    final nextEvent = <String, dynamic>{
+      'description': description,
+      'verified': 0,
+      'declined': 0,
+      'name': name,
+      'uniqueId': uniqueId,
+      'date': S,
+      'tenure': tenure,
+      'topic': topic,
+      'venue': venue,
+      'emailId': email,
+      'registrations': 0
     };
-    _database.child('/organisers').push().set(nextEvent)
+    _database
+        .child('/organisers')
+        .push()
+        .set(nextEvent)
         .then((value) => print("done"))
-        .catchError((onError)=> print('nai hua '));
-
-
+        .catchError((onError) => print('nai hua '));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        appBar: AppBar(
-          backgroundColor: primaryBrown,
-          toolbarHeight: 70,
-          title: Text("Organize your event!"),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-
+      appBar: AppBar(
+        backgroundColor: primaryBrown,
+        toolbarHeight: 70,
+        title: Text("Organize your event!"),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
-
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Padding(
@@ -190,13 +169,10 @@ class _EventFormState extends State<EventForm> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Form(
-
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
-
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -214,24 +190,25 @@ class _EventFormState extends State<EventForm> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-
                           decoration: InputDecoration(
 // fillColor: primaryBrown,
                             filled: true,
                             hintText: "Name",
                             border: InputBorder.none,
                           ),
-                          inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(30)
+                          ],
                           onChanged: (value) => setState(() {
-                            name=value;
+                            name = value;
                           }),
-                          validator:RequiredValidator(errorText: "Required Feild"),
+                          validator:
+                              RequiredValidator(errorText: "Required Feild"),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-
                           decoration: InputDecoration(
 // fillColor: primaryBrown,
                             filled: true,
@@ -240,26 +217,24 @@ class _EventFormState extends State<EventForm> {
                           ),
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (value) => setState(() {
-                            email=value;
+                            email = value;
                           }),
-                          validator:  MultiValidator([
+                          validator: MultiValidator([
                             RequiredValidator(errorText: "Required"),
-                            EmailValidator(errorText: "Please enter a valid email address"),
+                            EmailValidator(
+                                errorText:
+                                    "Please enter a valid email address"),
                           ]),
-
-
-
-
-
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           onChanged: (value) => setState(() {
-                            uniqueId=value;
+                            uniqueId = value;
                           }),
-                          validator:RequiredValidator(errorText: "Required Field"),
+                          validator:
+                              RequiredValidator(errorText: "Required Field"),
                           decoration: InputDecoration(
 // fillColor: primaryBrown,
                             filled: true,
@@ -271,29 +246,32 @@ class _EventFormState extends State<EventForm> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          validator:RequiredValidator(errorText: "Required Field"),
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: "Required"),
+                          ]),
                           onChanged: (value) => setState(() {
-                            topic=value;
+                            topic = value;
                           }),
                           decoration: InputDecoration(
 // fillColor: primaryBrown,
                             filled: true,
-                            hintText: "Name of the event/purpose",
+                            hintText:
+                                "Name of the event/purpose ( should not use -,.,# etc)",
                             border: InputBorder.none,
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-
                         child: SelectFormField(
-                          type: SelectFormFieldType.dropdown, // or can be dialog
+                          type: SelectFormFieldType.dropdown,
+                          // or can be dialog
                           initialValue: 'Not Selected',
                           icon: Icon(Icons.format_shapes),
                           labelText: 'Venue',
                           items: _items,
-                          onChanged: (val) =>venue=val,
-                          onSaved: (val) =>venue=val!,
+                          onChanged: (val) => venue = val,
+                          onSaved: (val) => venue = val!,
                         ),
                       ),
 //Padding(
@@ -313,7 +291,6 @@ class _EventFormState extends State<EventForm> {
                       Padding(
                           padding: const EdgeInsets.all(8.0),
 // ignore: deprecated_member_use
-
 
                           child: Expanded(
                             child: Row(
@@ -335,56 +312,55 @@ class _EventFormState extends State<EventForm> {
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Container(
-                                    decoration:  BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: Colors.white10,
-
                                     ),
-                                    child: Text((S!="")?S:"Date in DD/MM/YYYY Format",style: TextStyle(fontSize: 17,color: Colors.grey),),
+                                    child: Text(
+                                      (S != "")
+                                          ? S
+                                          : "Date in DD/MM/YYYY Format",
+                                      style: TextStyle(
+                                          fontSize: 17, color: Colors.grey),
+                                    ),
                                   ),
                                 ),
-                                IconButton(onPressed: ()async {
-                                  _selectDate(context);
-                                }, icon: Icon(Icons.calendar_today))
+                                IconButton(
+                                    onPressed: () async {
+                                      _selectDate(context);
+                                    },
+                                    icon: Icon(Icons.calendar_today))
                               ],
                             ),
-                          )
-                      ),
+                          )),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: SelectFormField(
-                          type: SelectFormFieldType.dropdown, // or can be dialog
-                          initialValue:'C',
+                          type: SelectFormFieldType.dropdown,
+                          // or can be dialog
+                          initialValue: 'C',
                           icon: Icon(Icons.format_shapes),
                           labelText: 'Select Slot',
                           items: _time,
-                          onChanged: (val) =>(S[S.length-1]!='A' &&  S[S.length-1]!='B' ) ?S+=" " +val: S=S.substring(0, S.length-1) + val,
-                          onSaved: (val) =>(S[S.length-1]!='A' &&  S[S.length-1]!='B' ) ?S+=" " +val!: S=S.substring(0, S.length-1) + val!,
+                          onChanged: (val) =>
+                              (S[S.length - 1] != 'A' && S[S.length - 1] != 'B')
+                                  ? S += " " + val
+                                  : S = S.substring(0, S.length - 1) + val,
+                          onSaved: (val) =>
+                              (S[S.length - 1] != 'A' && S[S.length - 1] != 'B')
+                                  ? S += " " + val!
+                                  : S = S.substring(0, S.length - 1) + val!,
                         ),
                       ),
-// Padding(
-//   padding: const EdgeInsets.all(8.0),
-//   child: TextFormField(
-//     onChanged: (value) => setState(() {
-//       time=value;
-//     }),
-//
-//     decoration: InputDecoration(
-//       // fillColor: primaryBrown,
-//       filled: true,
-//       hintText: "Time 00:00 AM/PM",
-//       border: InputBorder.none,
-//     ),
-//   ),
-// ),
+
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          validator:RequiredValidator(errorText: "Required Field"),
+                          validator:
+                              RequiredValidator(errorText: "Required Field"),
                           onChanged: (value) => setState(() {
-                            tenure=value;
+                            tenure = value;
                           }),
                           decoration: InputDecoration(
-// fillColor: primaryBrown,
                             filled: true,
                             hintText: "Tenure in hrs",
                             border: InputBorder.none,
@@ -394,9 +370,10 @@ class _EventFormState extends State<EventForm> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          validator:RequiredValidator(errorText: "Required Field"),
+                          validator:
+                              RequiredValidator(errorText: "Required Field"),
                           onChanged: (value) => setState(() {
-                            description=value;
+                            description = value;
                           }),
                           maxLines: 6,
                           decoration: InputDecoration(
@@ -409,7 +386,8 @@ class _EventFormState extends State<EventForm> {
                       ),
 
                       TextButton(
-                          style: TextButton.styleFrom(backgroundColor: primaryBrown),
+                          style: TextButton.styleFrom(
+                              backgroundColor: primaryBrown),
                           onPressed: () async {
                             print(name);
                             print(description);
@@ -420,69 +398,91 @@ class _EventFormState extends State<EventForm> {
                             print(topic);
                             print(email);
 
-
-
-                            if(name!="" && description!="" && tenure!="" && S!="" && venue!="" && topic!="" && uniqueId!="" && email!="") {
-
+                            if (name != "" &&
+                                description != "" &&
+                                tenure != "" &&
+                                S != "" &&
+                                venue != "" &&
+                                topic != "" &&
+                                uniqueId != "" &&
+                                email != "") {
                               print("aya");
                               await check(S);
-
-
-
-
                             }
-
-
-
+                            if (topic.contains(".") ||
+                                topic.contains("#") ||
+                                topic.contains("[") ||
+                                topic.contains("]")) {
+                              val = false;
+                            }
                           },
                           child: Text("Save Changes",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ))),
-                      TextButton(onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          print("Process data");
+                      TextButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              print("Process data");
+                            } else {
+                              print('Error');
+                            }
 
-                        } else {
-                        print('Error');
-                        }
-                        if(inte==1 && ok) {
-                          await _inputUserEventData();
-                          print("pata nai");
+                            if (val) {
+                              if (inte == 1 && ok) {
+                                await _inputUserEventData();
+                                print("pata nai");
 
-                          final snackBar = SnackBar(
-                            content: const Text('Slot is Booked , Verification Pending!'),
-                            action: SnackBarAction(
-                              label: '',
-                              onPressed: () {
-                                // Some code to undo the change.
-                              },
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Navigator.pop(context);
+                                final snackBar = SnackBar(
+                                  content: const Text(
+                                      'Slot is Booked , Verification Pending!'),
+                                  action: SnackBarAction(
+                                    label: '',
+                                    onPressed: () {
+                                      // Some code to undo the change.
+                                    },
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                Navigator.pop(context);
+                              } else if (!ok) {
+                                final snackBar = SnackBar(
+                                  content: const Text(
+                                      'Slot Not Available , already Booked! Try out with other slots'),
+                                  action: SnackBarAction(
+                                    label: '',
+                                    onPressed: () {
+                                      // Some code to undo the change.
+                                    },
+                                  ),
+                                );
 
+                                // Find the ScaffoldMessenger in the widget tree
+                                // and use it to show a SnackBar.
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            } else {
+                              final snackBar = SnackBar(
+                                content: const Text(
+                                    'You are not allowed to use .,#,[,],etc within form'),
+                                action: SnackBarAction(
+                                  label: '',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                  },
+                                ),
+                              );
 
-
-
-                        }
-                        else if(!ok){
-                          final snackBar = SnackBar(
-                            content: const Text('Slot Not Available , already Booked! Try out with other slots'),
-                            action: SnackBarAction(
-                              label: '',
-                              onPressed: () {
-                                // Some code to undo the change.
-                              },
-                            ),
-                          );
-
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      }, child: Text("confirm")),
+                              // Find the ScaffoldMessenger in the widget tree
+                              // and use it to show a SnackBar.
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          child: Text("confirm")),
                     ],
                   ),
                 ),
@@ -497,4 +497,3 @@ class _EventFormState extends State<EventForm> {
     );
   }
 }
-

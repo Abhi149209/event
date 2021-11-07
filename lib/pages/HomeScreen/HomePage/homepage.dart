@@ -12,21 +12,33 @@ import 'package:glbapp/pages/HomeScreen/notifications/notificationScreen.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final int role;
+  const HomePage({required this.role}) ;
+
+
+
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(role:role);
 }
 
 class _HomePageState extends State<HomePage> {
+  final int role;
+   _HomePageState({required this.role});
+
+
   final database=FirebaseDatabase.instance.reference();
   //User? user = FirebaseAuth.instance.currentUser;
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
   bool isDrawerOpen = false;
+
+
   @override
   Widget build(BuildContext context) {
+    print(this.role);
+    final user=FirebaseAuth.instance.currentUser;
     final dailySpecialRef=database.child('/notification');
     Size size = MediaQuery.of(context).size;
    // print(user!.email);

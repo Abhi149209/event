@@ -44,6 +44,7 @@
 // }
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +60,7 @@ class Notification_Event extends StatefulWidget {
 
 class _Notification_EventState extends State<Notification_Event> {
   late Query _ref;
-  String user="me1911"
-      "2";
+  late String user;
   late String s;
   final String body='Thank you for registering your event. Director/HOD office has viewed your request and granted Permission for so. ';
 
@@ -134,6 +134,8 @@ class _Notification_EventState extends State<Notification_Event> {
 
 
   Widget _buildContactItem({required Map nextOrder, required int count,required int ok}) {
+    final user1=FirebaseAuth.instance.currentUser;
+    user=user1!.displayName!;
     //var count=reference
       //  .child(nextOrder['key']).child('registration');
 

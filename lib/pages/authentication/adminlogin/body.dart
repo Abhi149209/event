@@ -1,11 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:glbapp/pages/HomeScreen/homeScreen.dart';
 import 'package:glbapp/pages/authentication/adminlogin/background.dart';
 import 'package:glbapp/pages/authentication/widget/button.dart';
 
 class AdminBody extends StatelessWidget {
+  int role=0;
+  String pin="";
+  TextEditingController _textFieldController = TextEditingController();
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(' Pin '),
+            actions: [
+              TextButton(
+                child: Text("YES"),
+                onPressed: () {
+                  //Put your code here which you want to execute on Yes button click.
+                  if(pin=="0000"){
+                    role=2;
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => HomeScreen(role: role)));
+                  }
+                  else if(pin=="1234"){
+                    role=1;
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => HomeScreen(role: role)));
+
+                  }
+                  else{
+
+                    Fluttertoast.showToast(msg: "wrong pin");
+
+                  }
+
+                },
+              ),
+            ],
+            content: TextField(
+              onChanged: (value) {
+                   pin=value;
+                   print(pin);
+
+                },
+
+
+
+
+
+
+
+
+
+
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Text Field in Dialog"),
+            ),
+          );
+        });
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
 
     return LoginBackground(
       body: SafeArea(
@@ -30,11 +92,16 @@ class AdminBody extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(height: size.height * 0.02),
+
               CircularButton(
                 text: "Faculty",
                 color: Color(0xff902525),
                 textColor: Colors.white,
-                press: () => Navigator.pushNamed(context, "/adminsignup"),
+                press: () => {
+                  _displayTextInputDialog(context),
+
+
+                },
               ),
               SizedBox(
                 height: 20,
@@ -43,7 +110,8 @@ class AdminBody extends StatelessWidget {
                 text: "Student",
                 color: Color(0xfffac439),
                 textColor: Colors.black,
-                press: () => Navigator.pushNamed(context, "/signup"),
+                press: () =>Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => HomeScreen(role: role))),
               ),
               SizedBox(height: size.height * 0.05),
             ],
@@ -53,3 +121,8 @@ class AdminBody extends StatelessWidget {
     );
   }
 }
+//
+//
+// final snackBar = SnackBar(content: Text('wrong pin!'));
+//
+// ScaffoldMessenger.of(context).showSnackBar(snackBar);
